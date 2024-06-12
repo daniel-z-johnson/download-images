@@ -42,7 +42,7 @@ func main() {
 	for i := *start; i <= *end; i++ {
 		err = downloadImage(folderPath, fmt.Sprintf(*filename, i), fmt.Sprintf(*downloadURL, i))
 		if err != nil {
-			fmt.Printf("Err downloading img: '%s'", err)
+			fmt.Printf("Err downloading img: '%s\n\tURL: '%s'\n'", err, fmt.Sprintf(*downloadURL, i))
 		}
 	}
 
@@ -50,7 +50,7 @@ func main() {
 }
 
 func checkName(name string) error {
-	pattern, err := regexp.Compile("^[a-z0-9]+$")
+	pattern, err := regexp.Compile("^[a-zA-Z0-9-]+$")
 	if err != nil {
 		return err
 	}
