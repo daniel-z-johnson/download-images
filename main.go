@@ -8,6 +8,7 @@ import (
 	"os"
 	"path"
 	"regexp"
+	"time"
 
 	"image"
 	_ "image/gif"
@@ -40,10 +41,13 @@ func main() {
 	}
 
 	for i := *start; i <= *end; i++ {
+		start := time.Now()
 		err = downloadImage(folderPath, fmt.Sprintf(*filename, i), fmt.Sprintf(*downloadURL, i))
 		if err != nil {
 			fmt.Printf("Err downloading img: '%s\n\tURL: '%s'\n'", err, fmt.Sprintf(*downloadURL, i))
+			return
 		}
+		fmt.Println(time.Now().Sub(start).String())
 	}
 
 	fmt.Println("Finished")
