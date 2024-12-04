@@ -17,6 +17,7 @@ import (
 
 func main() {
 	fmt.Println("Program Start")
+	ps := time.Now()
 	folder := flag.String("f", "", "folder name")
 	filename := flag.String("name", "page_%04d", "")
 	downloadURL := flag.String("loc", "", "URL template for the downloads")
@@ -47,14 +48,15 @@ func main() {
 			fmt.Printf("Err downloading img: '%s\n\tURL: '%s'\n'", err, fmt.Sprintf(*downloadURL, i))
 			return
 		}
-		fmt.Println(time.Now().Sub(start).String())
+		fmt.Printf("(%d) %s\n", i, time.Now().Sub(start).String())
 	}
 
+	fmt.Printf("Total time: %s\n", time.Now().Sub(ps).String())
 	fmt.Println("Finished")
 }
 
 func checkName(name string) error {
-	pattern, err := regexp.Compile("^[a-zA-Z0-9-]+$")
+	pattern, err := regexp.Compile("^[/a-zA-Z0-9-]+$")
 	if err != nil {
 		return err
 	}
@@ -68,7 +70,7 @@ func checkName(name string) error {
 
 func downloadImage(folderPath, filename, downloadURL string) error {
 	filePath := path.Join(folderPath, filename)
-	f1, err := os.Create(filePath)
+	f1, err := os.Create(filePath + ".png")
 	if err != nil {
 		return err
 	}
