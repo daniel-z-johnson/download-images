@@ -49,6 +49,7 @@ func main() {
 			return
 		}
 		fmt.Printf("(%d) %s\n", i, time.Now().Sub(start).String())
+        time.Sleep(5 * time.Second)
 	}
 
 	fmt.Printf("Total time: %s\n", time.Now().Sub(ps).String())
